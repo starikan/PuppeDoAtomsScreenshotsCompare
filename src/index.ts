@@ -21,7 +21,7 @@ module.exports = async function atomRun(): Promise<void> {
   const rootFolder = path.resolve(
     path.join(
       this.argsEnv.PPD_ROOT,
-      rootFolderIncome || process.env.PPD_SCREENSHOT_COMPARE_ROOT_FOLDER || 'screenshots/werew',
+      rootFolderIncome || process.env.PPD_SCREENSHOT_COMPARE_ROOT_FOLDER || 'screenshots',
     ),
   );
   const { Screenshot } = this.ppd;
