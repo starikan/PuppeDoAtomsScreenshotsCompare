@@ -1,0 +1,2 @@
+# PuppeDoScreenshotsCompare
+PuppeDo Screenshots Compare
