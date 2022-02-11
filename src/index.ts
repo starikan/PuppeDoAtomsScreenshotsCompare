@@ -11,11 +11,12 @@ module.exports = async function atomRun(): Promise<void> {
 
   const regimesAvailable = ['create-screenshots', 'compare-screenshots'];
   if (!regimesAvailable.includes(process.env.PPD_SCREENSHOT_COMPARE_REGIME)) {
-    throw new Error(
-      `Environment param PPD_SCREENSHOT_COMPARE_REGIME === '${
+    await this.log({
+      text: `Environment param PPD_SCREENSHOT_COMPARE_REGIME === '${
         process.env.PPD_SCREENSHOT_COMPARE_REGIME
       }' not supported. Try: ${JSON.stringify(regimesAvailable)}`,
-    );
+      level: 'info',
+    });
   }
 
   const rootFolder = path.resolve(

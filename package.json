@@ -1,6 +1,6 @@
 {
   "name": "@puppedo/atoms-screenshot-compare",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Atoms for Screenshot Compare with PuppeDo",
   "main": "index.js",
   "repository": {
