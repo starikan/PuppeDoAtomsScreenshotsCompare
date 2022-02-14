@@ -3,4 +3,4 @@ type: atom
 description: Screenshot comparison
 needSelectors: [selector?]
 needData: [name, rootFolder?, folder?]
-needEnvParams: ['PPD_SCREENSHOT_COMPARE_REGIME', 'PPD_SCREENSHOT_COMPARE_FOLDER?']
+needEnvParams: ['PPD_SCREENSHOT_COMPARE_MODE', 'PPD_SCREENSHOT_COMPARE_FOLDER?']

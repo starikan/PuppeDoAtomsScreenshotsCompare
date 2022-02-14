@@ -9,14 +9,19 @@ module.exports = async function atomRun(): Promise<void> {
   const { options } = this;
   const { selector } = this.selectors;
 
-  const regimesAvailable = ['create-screenshots', 'compare-screenshots'];
-  if (!regimesAvailable.includes(process.env.PPD_SCREENSHOT_COMPARE_REGIME)) {
+  const modeAvailable = ['create-screenshots', 'compare-screenshots', 'disable'];
+  if (!modeAvailable.includes(process.env.PPD_SCREENSHOT_COMPARE_MODE)) {
     await this.log({
-      text: `Environment param PPD_SCREENSHOT_COMPARE_REGIME === '${
-        process.env.PPD_SCREENSHOT_COMPARE_REGIME
-      }' not supported. Try: ${JSON.stringify(regimesAvailable)}`,
+      text: `Environment param PPD_SCREENSHOT_COMPARE_MODE === '${
+        process.env.PPD_SCREENSHOT_COMPARE_MODE
+      }' not supported. Try: ${JSON.stringify(modeAvailable)}`,
       level: 'info',
     });
+  }
+
+  if (process.env.PPD_SCREENSHOT_COMPARE_MODE === 'disable') {
+    await this.log({ text: 'Screenshots compare disable', level: 'info' });
+    return;
   }
 
   const rootFolder = path.resolve(
@@ -35,14 +40,12 @@ module.exports = async function atomRun(): Promise<void> {
 
   const folder = path.join(rootFolder, folderIncome || process.env.PPD_SCREENSHOT_COMPARE_FOLDER || '');
 
-  const isCreateScreensRegime = process.env.PPD_SCREENSHOT_COMPARE_REGIME === 'create-screenshots';
-  if (isCreateScreensRegime) {
+  if (process.env.PPD_SCREENSHOT_COMPARE_MODE === 'create-screenshots') {
     await Screenshot.copyScreenshotToFolder(screenshot, folder, name);
     await this.log({ text: `Screenshot create to compare: folder = '${folder}', name = '${name}'` });
   }
 
-  const isCompareScreensRegime = process.env.PPD_SCREENSHOT_COMPARE_REGIME === 'compare-screenshots';
-  if (isCompareScreensRegime) {
+  if (process.env.PPD_SCREENSHOT_COMPARE_MODE === 'compare-screenshots') {
     const origin = path.join(folder, `${name}.png`);
     const compare = await looksSame(screenshot, origin, options);
 
